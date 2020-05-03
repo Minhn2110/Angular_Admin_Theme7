@@ -8,6 +8,8 @@ import { of, fromEvent } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '../../../../core/_base/crud';
 
+declare var paypal;
+
 @Component({
   selector: 'kt-admin-product',
   templateUrl: './admin-product.component.html',
@@ -18,6 +20,16 @@ export class AdminProductComponent implements OnInit {
   status: any;
   username: any;
   price: any;
+
+  @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
+
+  product = {
+    price: 1,
+    description: 'used couch, decent condition',
+    img: 'assets/couch.jpg'
+  };
+
+  paidFor = false;
 
   	/**
 	 * Component constructor
@@ -34,12 +46,38 @@ export class AdminProductComponent implements OnInit {
     private layoutUtilsService: LayoutUtilsService,
     ) {}
 
+
   ngOnInit() {
     this.status = '';
     // var day = new Date(2011, 9, 16);
     // var dayWrapper = moment(day).subtract(1, 'month').format("DD/MM/YYYY");
     // console.log('day', dayWrapper);
     this.initPagination();
+    paypal
+    .Buttons({
+      createOrder: (data, actions) => {
+        return actions.order.create({
+          purchase_units: [
+            {
+              description: this.product.description,
+              amount: {
+                currency_code: 'USD',
+                value: this.product.price
+              }
+            }
+          ]
+        });
+      },
+      onApprove: async (data, actions) => {
+        const order = await actions.order.capture();
+        this.paidFor = true;
+        console.log(order);
+      },
+      onError: err => {
+        console.log(err);
+      }
+    })
+    .render(this.paypalElement.nativeElement);
   }
 
   ngAfterViewInit(): void {
@@ -251,5 +289,7 @@ export class AdminProductComponent implements OnInit {
     this.paginator.pageIndex = 0;
     this.dataSource = new MatTableDataSource(datasource);
   }
+
+
 
 }
