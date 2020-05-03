@@ -1,0 +1,22 @@
+.mat-column-STT {
+    width: 5%;
+}
+.mat-column-name {
+    width: 15%;
+}
+.mat-column-price {
+    width: 15%;
+}
+.mat-column-InStock {
+    width: 15%;
+}
+.mat-column-status {
+    width: 15%;
+}
+.mat-column-CreateAt {
+    width: 15%;
+}
+
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+    border: none;
+}
