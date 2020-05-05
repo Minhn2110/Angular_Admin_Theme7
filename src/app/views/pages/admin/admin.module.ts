@@ -8,6 +8,7 @@ import { MatDialogModule, MatButtonModule, MatMenuModule, MatSelectModule, MatIn
 import { HttpClientModule } from '@angular/common/http';
 import { PartialsModule } from '../../partials/partials.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdminProductAddComponent } from './admin-product/admin-product-add/admin-product-add.component';
 
 
 
@@ -42,7 +43,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [
     AdminComponent,
-    AdminProductComponent
+    AdminProductComponent,
+    AdminProductAddComponent
   ],
 
 })

@@ -61,6 +61,11 @@ import * as scss from 'highlight.js/lib/languages/scss';
 import * as xml from 'highlight.js/lib/languages/xml';
 import * as json from 'highlight.js/lib/languages/json';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	wheelSpeed: 0.5,
@@ -87,6 +92,16 @@ export function hljsLanguages(): HighlightLanguage[] {
 	];
 }
 
+const firebaseConfig = {
+	apiKey: "AIzaSyBBignCfPEtIIGntZzCpopvW0ZaJ_vl0SQ",
+	authDomain: "testsmartfund.firebaseapp.com",
+	databaseURL: "https://testsmartfund.firebaseio.com",
+	projectId: "testsmartfund",
+	storageBucket: "testsmartfund.appspot.com",
+	messagingSenderId: "852175374861",
+	appId: "1:852175374861:web:904159eb09735d43"
+  };
+
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
@@ -111,6 +126,10 @@ export function hljsLanguages(): HighlightLanguage[] {
 		MatProgressSpinnerModule,
 		InlineSVGModule.forRoot(),
 		ThemeModule,
+		AngularFireModule.initializeApp(firebaseConfig),
+		AngularFirestoreModule, // firestore
+		AngularFireAuthModule, // auth
+		AngularFireStorageModule // storage
 		
 	],
 	exports: [],
